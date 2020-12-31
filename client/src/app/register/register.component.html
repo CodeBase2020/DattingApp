@@ -1,0 +1,21 @@
+
+<form class="justify-content-center" #registration="ngForm" (submit)="registrationUser()">
+
+    
+    
+        <h2 class="text-primary text-center">Sign up</h2>
+    <hr/>
+    <div class="form-group mt-0">
+        <label for="username"></label>
+        <input type="text" class="form-control" name="Username" id="username" [(ngModel)]="model.Username">
+    </div>
+    <div class="form-group">
+        <label for="password"></label>
+        <input type="text" type="password" class="form-control" name="Password" id="password" [(ngModel)]="model.Password">
+    </div>
+
+    <div class="form-group text-center">
+     <button type="submit" class="btn btn-success mr-2">Registration</button>
+     <button  class="btn btn-default" (click)="cancel()">Cancel</button>
+    </div>
+</form>

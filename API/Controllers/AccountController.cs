@@ -7,6 +7,7 @@ using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using API.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -47,6 +48,7 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<TokenDTO>> UserLogin(LoginDTO login)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == login.UserName.ToLower());
