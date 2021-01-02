@@ -2,34 +2,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Interface;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-  
+
+ [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly DataContext _config;
-        public UsersController(DataContext config)
+                private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
-            _config = config;
+            _mapper = mapper;
+            _userRepository = userRepository;
+
         }
 
-      
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            return await _config.Users.ToListAsync();
+            return Ok(await _userRepository.GetMembersAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<User>> Get(int id)
         {
-           return await _config.Users.FindAsync(id);
+            return Ok(await _userRepository.GetUserById(id));
+        }
+
+        [HttpGet("{userName}")]
+        public async Task<ActionResult<User>> Get(string userName)
+        {
+           return Ok(await _userRepository.GetMemeberAsync(userName));
+        }
+
+        [HttpPost("Save")]
+        public async Task<ActionResult<int>> Save(UserDTO userDto)
+        {
+            var user = _mapper.Map<User>(userDto);
+
+            return Ok(await _userRepository.SaveAllAsync(user));
         }
 
     }
