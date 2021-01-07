@@ -17,6 +17,10 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberListsComponent } from './members/member-lists/member-lists.component';
 import { ErrorInterceptorInterceptor } from './Interceptor/error-interceptor.interceptor';
 import { ServerErrorComponent } from './server-error/server-error.component';
+import { MemberComponent } from './members/member/member.component';
+import { JwtInterceptor } from './Interceptor/jwt.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { ServerErrorComponent } from './server-error/server-error.component';
     MessagesComponent,
     MemberDetailComponent,
     MemberListsComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    MemberComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -41,10 +46,13 @@ import { ServerErrorComponent } from './server-error/server-error.component';
       
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    })
+    }),
+    TabsModule.forRoot(),
+    NgxGalleryModule 
   ],
   providers: [ 
-   {provide :HTTP_INTERCEPTORS,useClass: ErrorInterceptorInterceptor,multi:true}
+   {provide :HTTP_INTERCEPTORS,useClass: ErrorInterceptorInterceptor,multi:true},
+   {provide :HTTP_INTERCEPTORS,useClass: JwtInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
 })

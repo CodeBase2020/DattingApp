@@ -1,0 +1,14 @@
+.card-img-top {
+    margin:25px;
+    width: 85%;
+    height: 85%;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 0 25px;
+}
+.ngx-gallery{
+    display: inline-block; margin-bottom: 20px;
+}
+

@@ -1,1 +1,8 @@
-<p>member-lists works!</p>
+
+
+<div class="row">
+
+    <div class="col-2" *ngFor="let member of members">
+        <app-member [memberDetail]="member"></app-member>
+    </div>
+</div>
