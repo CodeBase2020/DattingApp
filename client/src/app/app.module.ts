@@ -21,6 +21,7 @@ import { MemberComponent } from './members/member/member.component';
 import { JwtInterceptor } from './Interceptor/jwt.interceptor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     MemberDetailComponent,
     MemberListsComponent,
     ServerErrorComponent,
-    MemberComponent
+    MemberComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
