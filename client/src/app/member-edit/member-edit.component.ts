@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { Members } from '../models/Members';
 import { User } from '../models/user';
@@ -12,10 +14,15 @@ import { MemberService } from '../_services/member.service';
 })
 export class MemberEditComponent implements OnInit {
 
+  @ViewChild('editForm') editForm : NgForm;
+  @HostListener('window:beforeunload',['$event']) beforeUnloadHandler(event) {
+       return false;
+  };
   memberDetails : Members;
   userDetail : User;
   
-  constructor(private _accountservice : AccountService,private _memberService: MemberService) { }
+  constructor(private _accountservice : AccountService,private _memberService: MemberService
+    ,private _toaster: ToastrService) { }
 
   
 
@@ -29,8 +36,20 @@ export class MemberEditComponent implements OnInit {
   getMember()
   {
       this._memberService.getMember(this.userDetail.userName).subscribe(
-        resp => { this.memberDetails = resp; }
+        resp => { this.memberDetails = resp;
+         
+        }
       )
+  }
+
+  UpdateProfileDetails()
+  {
+     this._memberService.UpdateMember(this.memberDetails).subscribe(resp => {
+         this._toaster.success("Profile updated successfully");
+      this.editForm.reset(this.memberDetails);
+     });
+    
+  
   }
 
 }

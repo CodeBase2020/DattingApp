@@ -1,7 +1,7 @@
 import { Photo } from "./Photo";
 
 export interface Members {
-    userName: string;
+    username: string;
     Gender: string;
     age:number;
     dateOfBirth: string;
@@ -10,7 +10,7 @@ export interface Members {
     created: string;
     lastActive: string;
     introduction: string;
-    LookingFor: string;
+    lookingFor: string;
     interests: string;
     city: string;
     country: string;

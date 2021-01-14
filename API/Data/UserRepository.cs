@@ -49,6 +49,12 @@ namespace API.Data
             return await _context.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName == UserName);
         }
 
+       async Task<User> IUserRepository.GetUserByUserNameAsync(string userName)
+        {
+            return await _context.Users.Include(x => x.Photos)
+                        .Where(x => x.UserName == userName).FirstOrDefaultAsync();
+        }
+
         async Task<IEnumerable<User>> IUserRepository.GetUsers()
         {
             return await _context.Users.Include(x => x.Photos).ToListAsync();
@@ -60,10 +66,12 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        void IUserRepository.Update(User user)
+    
+
+        async Task<bool> IUserRepository.UpdateAsync(User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
-            _context.Users.AddAsync(user);
+            _context.Users.Update(user);
+           return await _context.SaveChangesAsync() > 0;
 
         }
     }

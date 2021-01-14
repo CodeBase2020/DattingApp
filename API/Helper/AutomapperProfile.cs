@@ -16,6 +16,9 @@ namespace API.Helper
              .ForMember(dest => dest.KnowAs,opt => opt.MapFrom(x => x.UserName));
              
             CreateMap<Photo,PhotoDTO>();
+
+            CreateMap<ProfileEditDTO,User>();
+            
         }
     }
 }
